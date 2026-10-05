@@ -164,72 +164,7 @@ export default function Navbar() {
     }
   }, [menuOpen]);
 
-  const handleMenuHover = () => {
-    gsap.fromTo(
-      ".menu-below-text",
-      {
-        y: "1vw",
-        opacity: 0,
-      },
-      {
-        y: "0vw",
-        opacity: 1,
-        duration: 0.3,
-      }
-    );
-    gsap.to(".menu-top-text", {
-      y: "-1vw",
-      duration: 0.3,
-    });
-  };
 
-  const handleProjectCross = () => {
-    gsap.fromTo(
-      ".project-below-text",
-      {
-        y: "1vw",
-        opacity: 0,
-      },
-      {
-        y: "0vw",
-        opacity: 1,
-        duration: 0.3,
-      }
-    );
-    gsap.to(".project-top-text", {
-      y: "-1vw",
-      duration: 0.3,
-    });
-  };
-
-  const leaveNav = () => {
-    gsap.to(".menu-top-text", { y: "0vw", duration: 0, ease: "linear" });
-    gsap.to(".menu-below-text", { y: "1vw", duration: 0, ease: "linear" });
-  };
-
-  const handleProjectEnter = () => {
-    gsap.fromTo(
-      ".project-below-text",
-      {
-        y: "2vw",
-        opacity: 0,
-      },
-      {
-        y: "0vw",
-        opacity: 1,
-        duration: 0.3,
-      }
-    );
-    gsap.to(".project-top-text", {
-      y: "-2vw",
-      duration: 0.3,
-    });
-  };
-
-  const LeaveProjectHover = () => {
-    gsap.to(".project-top-text", { y: "0vw", duration: 0, ease: "linear" });
-    gsap.to(".project-below-text", { y: "2vw", duration: 0, ease: "linear" });
-  };
 
   const handleEnter = () => {
   const lines = gsap.utils.toArray('.project-line');
@@ -281,8 +216,7 @@ export default function Navbar() {
             if (projectOpen) setProjectOpen(false);
             setMenuOpen(!menuOpen);
           }}
-          onMouseEnter={handleMenuHover}
-          className={`flex overflow-hidden nav-menu-item items-center gap-[1vw] cursor-pointer outline-none bg-yellow px-[1.5vw] h-full py-[1vw] rounded-br-[1vw] z-10000 relative ${menuOpen ? '' : 'group'}`}
+          className="group relative nav-menu-item flex items-center overflow-hidden justify-center cursor-pointer outline-none bg-yellow px-[1.4vw] h-full py-[1vw] rounded-br-[1vw] z-10000 gap-[0.6vw]"
         >
           <div className="flex items-center justify-center w-[1vw] min-w-[14px]">
             {menuOpen ? (
@@ -296,32 +230,19 @@ export default function Navbar() {
               </svg>
             )}
           </div>
-          <div className={`relative flex justify-center items-start h-[1vw] w-[2.5vw] overflow-hidden ${menuOpen ? 'group' : ''}`}>
-            {!menuOpen ? (
-              <div className="w-fit px-[0.1vw] flex flex-col group-hover:translate-y-[-1.25vw] group-hover:transition-all group-hover:duration-300 gap-[0.2vw] items-center justify-center">
-                <div className="project-top-text w-full h-full flex items-center justify-center overflow-hidden">
-                  <span className="font-body text-[0.7vw] font-semibold">
-                    MENU
-                  </span>
-                </div>
-                <div className="project-top-text group-hover:transition-all group-hover:duration-300 w-full h-full flex items-center justify-center overflow-hidden">
-                  <span className="font-body text-[0.7vw] font-semibold">
-                    MENU
-                  </span>
-                </div>
+          <div className="h-[1vw] min-h-[16px] overflow-hidden relative flex flex-col justify-start">
+            <div className="flex flex-col transition-transform duration-300 ease-out group-hover:-translate-y-1/2">
+              <div className="h-[1vw] min-h-[16px] flex items-center justify-center">
+                <span className="font-body text-[0.7vw] max-sm:text-xs font-semibold uppercase leading-none">
+                  {menuOpen ? "CLOSE" : "MENU"}
+                </span>
               </div>
-            ) : (
-              <div className="absolute top-1/2 left-1/2 !w-[7vw] h-[1vw] -translate-x-1/2 -translate-y-1/2 overflow-hidden">
-                <div className="w-fit mx-auto px-[0.1vw] flex flex-col group-hover:translate-y-[-1.25vw] group-hover:transition-all group-hover:duration-300 gap-[0.2vw] items-center justify-center">
-                  <div className="project-top-text w-full h-full flex items-center justify-center overflow-hidden">
-                    <span className="font-body text-[0.7vw] font-semibold">CLOSE</span>
-                  </div>
-                  <div className="project-top-text group-hover:transition-all group-hover:duration-300 w-full h-full flex items-center justify-center overflow-hidden">
-                    <span className="font-body text-[0.7vw] font-semibold">CLOSE</span>
-                  </div>
-                </div>
+              <div className="h-[1vw] min-h-[16px] flex items-center justify-center">
+                <span className="font-body text-[0.7vw] max-sm:text-xs font-semibold uppercase leading-none">
+                  {menuOpen ? "CLOSE" : "MENU"}
+                </span>
               </div>
-            )}
+            </div>
           </div>
         </button>
 
@@ -332,32 +253,30 @@ export default function Navbar() {
             if (menuOpen) setMenuOpen(false);
             setProjectOpen(!projectOpen);
           }}
-          className={`relative nav-menu-item flex items-center overflow-hidden justify-center cursor-pointer outline-none bg-yellow px-[1.2vw] h-full py-[1vw] rounded-bl-[1vw] ${
-            menuOpen ? "z-9995" : "z-10002 group"
+          className={`group relative nav-menu-item flex items-center overflow-hidden justify-center cursor-pointer outline-none bg-yellow px-[1.4vw] h-full py-[1vw] rounded-bl-[1vw] ${
+            menuOpen ? "z-9995 opacity-50 pointer-events-none" : "z-10002"
           }`}
         >
-          <div className="relative w-[7vw] flex justify-center items-center h-[1vw] overflow-hidden">
-            {!projectOpen ? (
-              <div className="w-fit px-[0.1vw] flex flex-col group-hover:translate-y-[-1.25vw] group-hover:transition-all group-hover:duration-300 gap-[0.2vw] items-center justify-center">
-                <div className="project-top-text w-full h-full flex items-center justify-center overflow-hidden">
-                  <span className="font-body text-[0.7vw] font-semibold">
-                    GOT A PROJECT?
-                  </span>
-                </div>
-                <div className="project-top-text group-hover:transition-all group-hover:duration-300 w-full h-full flex items-center justify-center overflow-hidden">
-                  <span className="font-body text-[0.7vw] font-semibold">
-                    GOT A PROJECT?
-                  </span>
-                </div>
+          {projectOpen && (
+            <div className="mr-[0.4vw] flex items-center justify-center">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[0.8vw] min-w-[10px] h-[0.8vw] min-h-[10px] stroke-black">
+                <path d="M1 1L11 11M1 11L11 1" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </div>
+          )}
+          <div className="h-[1vw] min-h-[16px] overflow-hidden relative flex flex-col justify-start">
+            <div className="flex flex-col transition-transform duration-300 ease-out group-hover:-translate-y-1/2">
+              <div className="h-[1vw] min-h-[16px] flex items-center justify-center">
+                <span className="font-body text-[0.7vw] max-sm:text-xs font-semibold uppercase leading-none whitespace-nowrap">
+                  {projectOpen ? "CLOSE" : "GOT A PROJECT?"}
+                </span>
               </div>
-            ) : (
-              <div className="w-fit mx-auto px-[0.1vw] flex items-center gap-[0.4vw] justify-center">
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[0.8vw] min-w-[10px] h-[0.8vw] min-h-[10px] stroke-black">
-                  <path d="M1 1L11 11M1 11L11 1" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-                <span className="font-body text-[0.7vw] font-semibold">CLOSE</span>
+              <div className="h-[1vw] min-h-[16px] flex items-center justify-center">
+                <span className="font-body text-[0.7vw] max-sm:text-xs font-semibold uppercase leading-none whitespace-nowrap">
+                  {projectOpen ? "CLOSE" : "GOT A PROJECT?"}
+                </span>
               </div>
-            )}
+            </div>
           </div>
         </button>
 

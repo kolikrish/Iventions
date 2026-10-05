@@ -4,7 +4,6 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Btn from "../button/Btn";
-import IconButton from "../button/IconButton";
 import TextAnim from "../text-animation/TextAnim";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -96,11 +95,6 @@ const SliderCard = ({
                   </p>
                 </div>
               </button>
-              
-              <IconButton
-                icon="/assets/icons/icon-arrow.svg"
-                pad="w-[7vw] h-[7vw] md:w-[4.2vw] md:h-[4.2vw]"
-              />
             </div>
           </div>
         </div>

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/dist/ScrollTrigger'
 import SplitText from 'gsap/dist/SplitText'
-import IconButton from '../button/IconButton'
 import Btn from '../button/Btn'
 gsap.registerPlugin(ScrollTrigger, SplitText)
 
@@ -239,12 +238,52 @@ const CaseStudy2 = () => {
           {/* CONTROLS */}
           <div className='flex justify-between items-center mt-[3vh] text-[2.5vw] md:text-[0.8vw]'>
             <div className='flex gap-[1vw]'>
-              <div onClick={() => animateSlideChange('prev')}>
-                <IconButton icon='/assets/icons/prev-icon.svg' pad='w-[7vw] h-[7vw] md:w-[3.5vw] md:h-[3.5vw]' />
-              </div>
-              <div onClick={() => animateSlideChange('next')}>
-                <IconButton icon='/assets/icons/next-icon.svg' pad='w-[7vw] h-[7vw] md:w-[3.5vw] md:h-[3.5vw]' />
-              </div>
+              <button
+                type='button'
+                onClick={() => animateSlideChange('prev')}
+                disabled={isAnimating}
+                aria-label='Previous slide'
+                className='w-[7vw] h-[7vw] md:w-[3.2vw] md:h-[3.2vw] rounded-[0.5vw] bg-white hover:bg-black text-black hover:text-white transition-colors duration-300 flex items-center justify-center cursor-pointer border border-black/10 disabled:opacity-50 disabled:cursor-not-allowed shadow-xs'
+              >
+                <svg
+                  width='18'
+                  height='18'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='w-[3.2vw] h-[3.2vw] md:w-[1.2vw] md:h-[1.2vw] stroke-current'
+                >
+                  <path
+                    d='M19 12H5M5 12L12 19M5 12L12 5'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+              </button>
+              <button
+                type='button'
+                onClick={() => animateSlideChange('next')}
+                disabled={isAnimating}
+                aria-label='Next slide'
+                className='w-[7vw] h-[7vw] md:w-[3.2vw] md:h-[3.2vw] rounded-[0.5vw] bg-white hover:bg-black text-black hover:text-white transition-colors duration-300 flex items-center justify-center cursor-pointer border border-black/10 disabled:opacity-50 disabled:cursor-not-allowed shadow-xs'
+              >
+                <svg
+                  width='18'
+                  height='18'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
+                  className='w-[3.2vw] h-[3.2vw] md:w-[1.2vw] md:h-[1.2vw] stroke-current'
+                >
+                  <path
+                    d='M5 12H19M19 12L12 5M19 12L12 19'
+                    strokeWidth='2'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
+                  />
+                </svg>
+              </button>
             </div>
 
             <div className='text-sm text-gray-500 w-[12vw] md:w-[4vw] flex gap-[0.3vw] font-display tracking-widest'>

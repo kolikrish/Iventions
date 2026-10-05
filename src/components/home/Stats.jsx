@@ -17,28 +17,28 @@ const Insights = () => {
   const baseRotateX = 5;
   const baseRotateY = -5;
 
-const mids = [
-  {
-    no: '270',
-    superScript: '+'
-  },
-  {
-    no: '90',
-    superScript: '%'
-  },
-  {
-    no: '21',
-    superScript: ''
-  },
-  {
-    no: '30',
-    superScript: ''
-  },
-  {
-    no: '1.2',
-    superScript: 'K'
-  },,
-];
+  const mids = [
+    {
+      no: '270',
+      superScript: '+'
+    },
+    {
+      no: '90',
+      superScript: '%'
+    },
+    {
+      no: '21',
+      superScript: ''
+    },
+    {
+      no: '30',
+      superScript: ''
+    },
+    {
+      no: '1.2',
+      superScript: 'K'
+    }, ,
+  ];
 
   const heading = [
     "Projects Delievered",
@@ -65,6 +65,8 @@ const mids = [
   ];
 
   useEffect(() => {
+    if (!containerRef.current) return;
+
     const ctx = gsap.context(() => {
       const total = heading.length;
 
@@ -74,22 +76,27 @@ const mids = [
 
         if (!headingRefs.current[i] || !contentRefs.current[i]) return;
 
-        gsap.set([headingRefs.current[i], contentRefs.current[i]], { y: "8vw", opacity: 0 });
-        if (i === 0) gsap.set([headingRefs.current[i], contentRefs.current[i]], { y: 0, opacity: 1 });
+        const initialTargets = [headingRefs.current[i], contentRefs.current[i]].filter(Boolean);
+        if (initialTargets.length > 0) {
+          gsap.set(initialTargets, { y: "8vw", opacity: 0 });
+          if (i === 0) gsap.set(initialTargets, { y: 0, opacity: 1 });
+        }
 
         ScrollTrigger.create({
           trigger: "#insights",
           start: `${startPos}% 20.5%`,
           end: `${endPos}% 20.5%`,
-          // markers:true,
 
           onEnter: () => {
             if (i > 0) {
-              gsap.fromTo(
-                [headingRefs.current[i], contentRefs.current[i]],
-                { y: "8vw",opacity:0},
-                { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
-              );
+              const targets = [headingRefs.current[i], contentRefs.current[i]].filter(Boolean);
+              if (targets.length > 0) {
+                gsap.fromTo(
+                  targets,
+                  { y: "8vw", opacity: 0 },
+                  { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+                );
+              }
 
               // IMAGE CROSSFADE
               if (imageRefs.current[i - 1]) {
@@ -112,27 +119,31 @@ const mids = [
           // === ON LEAVE DOWN (scroll continues) ===
           onLeave: () => {
             if (i < total - 1) {
-              gsap.to([headingRefs.current[i], contentRefs.current[i]], {
-                y: "-8vw",
-                opacity: 0,
-                duration: 0.5,
-                ease: "power2.out",
-              });
+              const targets = [headingRefs.current[i], contentRefs.current[i]].filter(Boolean);
+              if (targets.length > 0) {
+                gsap.to(targets, {
+                  y: "-8vw",
+                  opacity: 0,
+                  duration: 0.5,
+                  ease: "power2.out",
+                });
+              }
             }
           },
 
           // === ON ENTER BACK (scrolling up) ===
           onEnterBack: () => {
-            if(i===total-1)
-                return;
-            gsap.fromTo(
-              [headingRefs.current[i], contentRefs.current[i]],
-              { y: "-8vw", opacity:0},
-              { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
-            );
+            if (i === total - 1) return;
+            const targets = [headingRefs.current[i], contentRefs.current[i]].filter(Boolean);
+            if (targets.length > 0) {
+              gsap.fromTo(
+                targets,
+                { y: "-8vw", opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+              );
+            }
 
             // IMAGE CROSSFADE (scrolling up)
-            
             if (imageRefs.current[i + 1]) {
               gsap.to(imageRefs.current[i + 1], {
                 opacity: 0,
@@ -152,12 +163,15 @@ const mids = [
           // === ON LEAVE BACK (scroll up past item) ===
           onLeaveBack: () => {
             if (i > 0) {
-              gsap.to([headingRefs.current[i], contentRefs.current[i]], {
-                y: "8vw",
-                opacity: 0,
-                duration: 0.5,
-                ease: "power2.out",
-              });
+              const targets = [headingRefs.current[i], contentRefs.current[i]].filter(Boolean);
+              if (targets.length > 0) {
+                gsap.to(targets, {
+                  y: "8vw",
+                  opacity: 0,
+                  duration: 0.5,
+                  ease: "power2.out",
+                });
+              }
             }
           },
         });
@@ -165,8 +179,8 @@ const mids = [
 
       imageSources.forEach((_, i) => {
         const total = imageSources.length;
-        const midNosElements = document.querySelectorAll(".mid-nos p");
-        const midNosTopElements = document.querySelectorAll(".mid-nos-top p");
+        const midNosElements = containerRef.current?.querySelectorAll(".mid-nos p") || [];
+        const midNosTopElements = containerRef.current?.querySelectorAll(".mid-nos-top p") || [];
         if (!midNosElements[i] || !midNosTopElements[i]) return;
 
         gsap.set(midNosTopElements[i], { y: "20vw" });
@@ -176,10 +190,9 @@ const mids = [
           trigger: midNosElements[i],
           start: "top 53%",
           end: "bottom 50%",
-          // markers:true,
 
           onEnter: () => {
-            if (i > 0) {
+            if (i > 0 && midNosTopElements[i]) {
               gsap.fromTo(
                 midNosTopElements[i],
                 { y: "20vw" },
@@ -189,7 +202,7 @@ const mids = [
           },
 
           onLeave: () => {
-            if (i < total - 1) {
+            if (i < total - 1 && midNosTopElements[i]) {
               gsap.to(midNosTopElements[i], {
                 y: "-20vw",
                 duration: 0.5,
@@ -199,17 +212,18 @@ const mids = [
           },
 
           onEnterBack: () => {
-            if(i===total-1)
-                return;
-            gsap.fromTo(
-              midNosTopElements[i],
-              { y: "-20vw" },
-              { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
-            );
+            if (i === total - 1) return;
+            if (midNosTopElements[i]) {
+              gsap.fromTo(
+                midNosTopElements[i],
+                { y: "-20vw" },
+                { y: 0, opacity: 1, duration: 0.5, ease: "power2.out" }
+              );
+            }
           },
 
           onLeaveBack: () => {
-            if (i > 0) {
+            if (i > 0 && midNosTopElements[i]) {
               gsap.to(midNosTopElements[i], {
                 y: "20vw",
                 duration: 0.5,
@@ -219,7 +233,7 @@ const mids = [
           },
         });
       });
-    });
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);

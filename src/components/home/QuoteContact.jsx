@@ -1,12 +1,13 @@
 "use client";
 import Image from "next/image";
 import React, { useRef, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
-import IconButton from "../button/IconButton";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 const QuoteContact = () => {
+  const router = useRouter();
   const leftClipRef = useRef(null);
   const rightClipRef = useRef(null);
   const containerRef = useRef(null);
@@ -14,6 +15,10 @@ const QuoteContact = () => {
   const rightTriggerRef = useRef(null);
   const imageRefs = useRef([]);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleNavigate = (tab = "quote") => {
+    router.push(`/contact?tab=${tab}`);
+  };
 
   const images = [
     "/assets/img/party-1.jpeg", // default
@@ -161,6 +166,7 @@ const QuoteContact = () => {
       {/* Left Clip Path */}
       <div
         ref={leftClipRef}
+        onClick={() => handleNavigate("quote")}
         className="absolute flex z-10 flex-col cursor-pointer items-center py-[2vw] gap-[15vw] max-md:gap-[8vw] top-0 left-0 w-1/2 h-full bg-[#E0FF98]"
         style={{
           clipPath: "polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)",
@@ -180,7 +186,7 @@ const QuoteContact = () => {
           </p>
 
           <div className="w-fit mx-auto flex items-center gap-[1vw]">
-            <p className="text-[0.8vw] max-md:text-[1.8vw] font-semibold font-display uppercase">
+            <p className="text-[0.8vw] max-md:text-[1.8vw] font-semibold font-display uppercase hover:underline">
               Get a custom quote
             </p>
           </div>
@@ -190,7 +196,8 @@ const QuoteContact = () => {
       {/* Right Clip Path */}
       <div
         ref={rightClipRef}
-        className="absolute flex z-10 flex-col !cursor-pointer !pointer-events-auto items-center gap-[15vw] max-md:gap-[8vw] py-[2vw] pl-[1.2vw] top-0 right-0 w-1/2 h-full bg-[#E0FF98]"
+        onClick={() => handleNavigate("contact")}
+        className="absolute flex z-10 flex-col cursor-pointer !pointer-events-auto items-center gap-[15vw] max-md:gap-[8vw] py-[2vw] pl-[1.2vw] top-0 right-0 w-1/2 h-full bg-[#E0FF98]"
         style={{
           clipPath: "polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%)",
         }}
@@ -208,7 +215,7 @@ const QuoteContact = () => {
           </p>
 
           <div className="w-fit mx-auto flex items-center gap-[1vw]">
-            <p className="text-[0.8vw] max-md:text-[1.8vw] font-semibold font-display uppercase">
+            <p className="text-[0.8vw] max-md:text-[1.8vw] font-semibold font-display uppercase hover:underline">
               Contact us
             </p>
           </div>
@@ -218,11 +225,13 @@ const QuoteContact = () => {
       {/* Trigger Areas */}
       <div
         ref={leftTriggerRef}
+        onClick={() => handleNavigate("quote")}
         className="absolute top-0 left-[10%] w-[28%] h-full z-10 !pointer-events-auto cursor-pointer"
       ></div>
       <div
         ref={rightTriggerRef}
-        className="absolute top-0 right-[10%] w-[28%] h-full z-10 cursor-pointer"
+        onClick={() => handleNavigate("contact")}
+        className="absolute top-0 right-[10%] w-[28%] h-full z-10 !pointer-events-auto cursor-pointer"
       ></div>
     </section>
     </div>

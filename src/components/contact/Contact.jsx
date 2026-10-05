@@ -7,6 +7,18 @@ const Contact = () => {
   const [activeForm, setActiveForm] = useState('quote');
   const overlayRef = useRef(null);
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const tab = params.get('tab');
+      if (tab === 'contact') {
+        setActiveForm('contact');
+      } else if (tab === 'quote') {
+        setActiveForm('quote');
+      }
+    }
+  }, []);
+
   // Animate form open/close
   useEffect(() => {
     if (overlayRef.current) {
