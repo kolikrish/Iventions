@@ -36,15 +36,15 @@ A high-performance, interactive frontend recreation and digital experience inspi
 ```text
 iventions/
 ├── public/
-│   └── assets/
-│       ├── icons/          # SVG icons & arrows
-│       ├── img/            # Case study & background imagery
-│       ├── svg/            # Hero branding & decorative SVGs
-│       └── video/          # Showcase background videos
+│   ├── assets/
+│   │   ├── icons/          # SVG icons & arrows
+│   │   ├── img/            # Case study & background imagery
+│   │   ├── svg/            # Hero branding & decorative SVGs
+│   │   └── video/          # Showcase background videos
+│   └── fonts/              # Custom web fonts (font1, font2, font3)
 ├── src/
 │   ├── app/
 │   │   ├── contact/        # Standalone contact route
-│   │   ├── fonts/          # Custom web fonts (font1, font2, font3)
 │   │   ├── globals.css     # Design tokens, keyframes, clip-paths
 │   │   ├── layout.js       # Root layout with fonts & Lenis scroll provider
 │   │   └── page.js         # Main single-page application entry

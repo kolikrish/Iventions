@@ -3,19 +3,19 @@ import localFont from "next/font/local";
 import LenisSmoothScroll from "@/components/Lenis/LenisScroll";
 import PageTransition from "@/components/page-transition/PageTransition";
 const Font1 = localFont({
-  src: [{ path: "./fonts/font1.woff2", weight: "300", style: "normal" }],
+  src: [{ path: "../../public/fonts/font1.woff2", weight: "300", style: "normal" }],
   variable: "--font-body",
   display: "swap",
 });
 
 const Font2 = localFont({
-  src: [{ path: "./fonts/font2.woff2", weight: "400", style: "normal" }],
+  src: [{ path: "../../public/fonts/font2.woff2", weight: "400", style: "normal" }],
   variable: "--font-display",
   display: "swap",
 });
 
 const Font3 = localFont({
-  src: [{ path: "./fonts/font3.woff2", weight: "400", style: "normal" }],
+  src: [{ path: "../../public/fonts/font3.woff2", weight: "400", style: "normal" }],
   variable: "--font-third",
   display: "swap",
 });
